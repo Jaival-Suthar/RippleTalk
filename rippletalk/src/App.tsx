@@ -8,6 +8,8 @@ import { HomePage } from './pages/home/page';
 import { NewEntryPage } from './pages/newentry/page';
 import { ProgressPage } from './pages/progress/page';
 import { AchievementsPage } from './pages/achievements/page';
+import { RipplesPage } from './pages/ripples/page';
+import MeditatePage  from './pages/meditate/page';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated } = useAuth();
@@ -23,6 +25,8 @@ const AppRoutes = () => (
       <Route path="/new" element={<ProtectedRoute><NewEntryPage /></ProtectedRoute>} />
       <Route path="/progress" element={<ProtectedRoute><ProgressPage /></ProtectedRoute>} />
       <Route path="/achievements" element={<ProtectedRoute><AchievementsPage /></ProtectedRoute>} />
+      <Route path="/ripples" element={<ProtectedRoute><RipplesPage /></ProtectedRoute>} />
+      <Route path="/meditate" element={<ProtectedRoute><MeditatePage /></ProtectedRoute>} />
     </Routes>
   </>
 );
