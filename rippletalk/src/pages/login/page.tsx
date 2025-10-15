@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context';
+import { FaLeaf } from 'react-icons/fa';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,32 +13,35 @@ export const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate async login
+
     await new Promise(resolve => setTimeout(resolve, 800));
+
     login(email, password);
     navigate('/');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-peach-50 to-yellow-50 flex items-center justify-center p-6">
-      {/* Decorative circles (Headspace style) */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-orange-200 rounded-full opacity-30 blur-2xl"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-yellow-200 rounded-full opacity-30 blur-2xl"></div>
-      <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-pink-200 rounded-full opacity-20 blur-xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-emerald-50 flex items-center justify-center p-6">
+      {/* Decorative circles */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-green-200 rounded-full opacity-20 blur-2xl"></div>
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-emerald-200 rounded-full opacity-20 blur-2xl"></div>
+      <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-teal-200 rounded-full opacity-15 blur-xl"></div>
 
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full mb-4 shadow-lg">
-            <span className="text-4xl">🧘</span>
+          <div className="inline-flex items-center justify-center mb-4">
+            <div className="flex items-center bg-gray-900 px-6 py-4 rounded-2xl shadow-lg">
+              <FaLeaf className="text-green-400 w-8 h-8" />
+              <span className="ml-3 font-bold text-2xl text-white">RT</span>
+            </div>
           </div>
           <h1 className="text-4xl font-bold text-gray-800 mb-2">RippleTalk</h1>
           <p className="text-gray-600">Your journey to mindful wellness</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
+        <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
             Welcome back
           </h2>
@@ -61,7 +65,7 @@ export const LoginPage = () => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all outline-none text-gray-800 placeholder-gray-400"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all outline-none text-gray-800 placeholder-gray-400"
                 />
               </div>
             </div>
@@ -84,14 +88,14 @@ export const LoginPage = () => {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all outline-none text-gray-800"
+                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all outline-none text-gray-800"
                 />
               </div>
             </div>
 
             {/* Forgot Password */}
             <div className="text-right">
-              <button type="button" className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors">
+              <button type="button" className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors">
                 Forgot password?
               </button>
             </div>
@@ -100,7 +104,7 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold py-3 rounded-xl hover:from-orange-500 hover:to-orange-600 focus:ring-4 focus:ring-orange-300 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-900 text-white font-semibold py-3 rounded-xl hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -130,7 +134,7 @@ export const LoginPage = () => {
           <div className="text-center">
             <button
               type="button"
-              className="text-orange-500 hover:text-orange-600 font-semibold transition-colors"
+              className="text-green-600 hover:text-green-700 font-semibold transition-colors"
             >
               Create an account
             </button>
@@ -140,11 +144,11 @@ export const LoginPage = () => {
         {/* Footer */}
         <p className="text-center text-sm text-gray-600 mt-8">
           By continuing, you agree to our{' '}
-          <a href="#" className="text-orange-500 hover:text-orange-600 transition-colors">
+          <a href="#" className="text-green-600 hover:text-green-700 transition-colors">
             Terms of Service
           </a>{' '}
           and{' '}
-          <a href="#" className="text-orange-500 hover:text-orange-600 transition-colors">
+          <a href="#" className="text-green-600 hover:text-green-700 transition-colors">
             Privacy Policy
           </a>
         </p>
