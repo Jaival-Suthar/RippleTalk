@@ -20,25 +20,21 @@ export const NewEntryPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-pink-50 py-12 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-pink-50 px-2 pt-4">
       {/* Success Toast */}
       {showSuccess && (
-        <div className="fixed top-6 right-6 z-50 animate-slide-in">
-          <div className="bg-white rounded-xl shadow-2xl p-4 flex items-center gap-3 border-l-4 border-green-500">
-            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
+        <div className="fixed top-5 right-5 z-50 animate-slide-in">
+          <div className="bg-white rounded-lg shadow-lg p-3 flex items-center gap-2 border-l-4 border-green-500">
+            <div className="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-lg">✔</div>
             <div>
-              <p className="font-semibold text-gray-800">Entry saved!</p>
-              <p className="text-sm text-gray-600">Redirecting to home...</p>
+              <p className="font-bold text-gray-800 leading-none">Entry saved!</p>
+              <p className="text-xs text-gray-500 leading-none">Redirecting...</p>
             </div>
           </div>
         </div>
       )}
 
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-1">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-400 to-pink-400 rounded-full mb-1 shadow-lg">

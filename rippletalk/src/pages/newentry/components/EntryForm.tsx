@@ -67,167 +67,148 @@ export const EntryForm = ({ onSubmit, loading, error }: Props) => {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8">
-        {/* Header */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">How are you feeling?</h2>
-          <p className="text-gray-600 text-sm">Take a moment to reflect on your day</p>
-        </div>
+  <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-2xl p-10">
+    {/* Header */}
+    <div className="mb-8">
+      <h2 className="text-3xl font-extrabold text-gray-900 mb-2">How are you feeling?</h2>
+      <p className="text-gray-600 text-sm">Take a moment to reflect on your day</p>
+    </div>
 
-        {/* Type Selection */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            Choose your mood
-          </label>
-          <div className="grid grid-cols-2 gap-4">
-            {/* High Button */}
-            <button
-              type="button"
-              onClick={() => handleTypeChange('high')}
-              className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${
-                type === 'high'
-                  ? 'border-green-400 bg-green-50 shadow-md'
-                  : 'border-gray-200 bg-white hover:border-green-300'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`text-3xl transition-transform ${type === 'high' ? 'scale-110' : ''}`}>
-                  😊
-                </div>
-                <div className="text-left">
-                  <p className={`font-semibold ${type === 'high' ? 'text-green-700' : 'text-gray-700'}`}>
-                    High Moment
-                  </p>
-                  <p className="text-xs text-gray-500">Positive vibes</p>
-                </div>
-              </div>
-              {type === 'high' && (
-                <div className="absolute top-2 right-2">
-                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              )}
-            </button>
-
-            {/* Low Button */}
-            <button
-              type="button"
-              onClick={() => handleTypeChange('low')}
-              className={`relative p-4 rounded-xl border-2 transition-all duration-200 ${
-                type === 'low'
-                  ? 'border-blue-400 bg-blue-50 shadow-md'
-                  : 'border-gray-200 bg-white hover:border-blue-300'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`text-3xl transition-transform ${type === 'low' ? 'scale-110' : ''}`}>
-                  💭
-                </div>
-                <div className="text-left">
-                  <p className={`font-semibold ${type === 'low' ? 'text-blue-700' : 'text-gray-700'}`}>
-                    Low Moment
-                  </p>
-                  <p className="text-xs text-gray-500">Reflective thoughts</p>
-                </div>
-              </div>
-              {type === 'low' && (
-                <div className="absolute top-2 right-2">
-                  <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Textarea */}
-        <div className="mb-4">
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
-            Your story
-          </label>
-          <div className="relative">
-            <textarea
-              id="content"
-              value={content}
-              onChange={handleContentChange}
-              placeholder={placeholder}
-              required
-              rows={6}
-              className={`w-full px-4 py-3 border-2 rounded-xl resize-none focus:outline-none transition-all ${
-                validationError
-                  ? 'border-red-300 focus:border-red-400 focus:ring-2 focus:ring-red-200'
-                  : type === 'high'
-                  ? 'border-gray-200 focus:border-green-400 focus:ring-2 focus:ring-green-100'
-                  : 'border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100'
-              } placeholder-gray-400 text-gray-800`}
-            />
-            <div className="absolute bottom-3 right-3 text-xs text-gray-400">
-              {charCount}/500
-            </div>
-          </div>
-          
-          {/* Character count indicator */}
-          <div className="mt-2 h-1 bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className={`h-full transition-all duration-300 ${
-                charCount < 5
-                  ? 'bg-gray-300'
-                  : charCount > 500
-                  ? 'bg-red-400'
-                  : type === 'high'
-                  ? 'bg-green-400'
-                  : 'bg-blue-400'
-              }`}
-              style={{ width: `${Math.min((charCount / 500) * 100, 100)}%` }}
-            ></div>
-          </div>
-        </div>
-
-        {/* Error Messages */}
-        {(validationError || error) && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-            <svg className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-            </svg>
-            <p className="text-sm text-red-700">{validationError || error}</p>
-          </div>
-        )}
-
-        {/* Submit Button */}
+    {/* Type Selection */}
+    <div className="mb-8">
+      <label className="block text-lg font-bold text-gray-800 mb-4">Choose your mood</label>
+      <div className="grid grid-cols-2 gap-6">
+        {/* High */}
         <button
-          type="submit"
-          disabled={loading || charCount < 5}
-          className={`w-full py-3 px-6 rounded-xl font-semibold text-white transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed ${
+          type="button"
+          onClick={() => handleTypeChange('high')}
+          className={`relative p-6 rounded-2xl border-4 transition-all duration-300 flex items-center gap-6 shadow-lg select-none ${
             type === 'high'
-              ? 'bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600'
-              : 'bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600'
+              ? 'border-green-500 bg-green-100 scale-105 shadow-green-400/60'
+              : 'border-gray-300 bg-white hover:border-green-400'
           }`}
+          aria-pressed={type === 'high'}
         >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <div className={`text-4xl ${type === 'high' ? 'scale-110' : ''}`}>😊</div>
+          <div>
+            <p className={`font-bold text-lg ${type === 'high' ? 'text-green-700' : 'text-gray-800'}`}>High Moment</p>
+            <p className="text-xs text-gray-500">Positive vibes</p>
+          </div>
+          {type === 'high' && (
+            <div className="absolute top-4 right-4 text-green-600">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Saving your moment...
-            </span>
-          ) : (
-            <span className="flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Save Entry
-            </span>
+            </div>
           )}
         </button>
 
-        {/* Helper Text */}
-        <p className="text-center text-xs text-gray-500 mt-4">
-          Your entries are private and secure
-        </p>
-      </form>
+        {/* Low */}
+        <button
+          type="button"
+          onClick={() => handleTypeChange('low')}
+          className={`relative p-6 rounded-2xl border-4 transition-all duration-300 flex items-center gap-6 shadow-lg select-none ${
+            type === 'low'
+              ? 'border-blue-500 bg-blue-100 scale-105 shadow-blue-400/60'
+              : 'border-gray-300 bg-white hover:border-blue-400'
+          }`}
+          aria-pressed={type === 'low'}
+        >
+          <div className={`text-4xl ${type === 'low' ? 'scale-110' : ''}`}>💭</div>
+          <div>
+            <p className={`font-bold text-lg ${type === 'low' ? 'text-blue-700' : 'text-gray-800'}`}>Low Moment</p>
+            <p className="text-xs text-gray-500">Reflective thoughts</p>
+          </div>
+          {type === 'low' && (
+            <div className="absolute top-4 right-4 text-blue-600">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            </div>
+          )}
+        </button>
+      </div>
     </div>
+
+    {/* Textarea */}
+    <div className="mb-6">
+      <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+        Your story
+      </label>
+      <textarea
+        id="content"
+        value={content}
+        onChange={handleContentChange}
+        placeholder={placeholder}
+        required
+        rows={6}
+        className={`w-full px-5 py-4 border-2 rounded-xl resize-none transition-colors outline-none ${
+          validationError
+            ? 'border-red-400 focus:border-red-500 focus:ring-2 focus:ring-red-200'
+            : type === 'high'
+            ? 'border-green-400 focus:border-green-500 focus:ring-2 focus:ring-green-200'
+            : 'border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200'
+        } placeholder-gray-400 text-gray-800 font-medium`}
+      />
+      <div className="mt-1 text-right text-xs text-gray-500 select-none">
+        {charCount} / 500
+      </div>
+
+      <div className="mt-3 h-1 w-full rounded-full bg-gray-100 overflow-hidden">
+        <div
+          className={`h-full transition-all duration-500 ${
+            charCount < 5
+              ? 'bg-gray-300'
+              : charCount > 500
+              ? 'bg-red-500'
+              : type === 'high'
+              ? 'bg-green-500'
+              : 'bg-blue-500'
+          }`}
+          style={{ width: `${Math.min(charCount, 500) / 5}%` }}
+        />
+      </div>
+    </div>
+
+    {/* Validation errors */}
+    {(validationError || error) && (
+      <div className="mb-6 p-4 bg-red-100 border border-red-300 rounded-xl flex items-center gap-3 text-red-700">
+        <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728" />
+        </svg>
+        <p className="text-sm font-semibold">{validationError || error}</p>
+      </div>
+    )}
+
+    {/* Submit Button */}
+    <button
+      type="submit"
+      disabled={loading || charCount < 5 || charCount > 500}
+      className={`w-full py-4 rounded-xl font-extrabold text-white shadow-lg transition-all duration-250 ${
+        loading
+          ? 'bg-gradient-to-r from-orange-300 to-orange-400 cursor-wait'
+          : type === 'high'
+          ? 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 cursor-pointer'
+          : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 cursor-pointer'
+      } disabled:opacity-60 disabled:cursor-not-allowed`}
+    >
+      {loading ? (
+        <span className="flex items-center justify-center gap-3">
+          <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+          </svg>
+          Saving your moment...
+        </span>
+      ) : (
+        'Save Entry'
+      )}
+    </button>
+
+    <p className="mt-4 text-center text-xs text-gray-500 select-none">
+      Your entries are private and secure
+    </p>
+  </form>
+</div>
   );
 };
