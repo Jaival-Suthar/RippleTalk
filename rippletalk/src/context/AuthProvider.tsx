@@ -12,11 +12,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Prefix 'password' with '_' to mark it as intentionally unused
   const login: AuthContextType['login'] = (email, _password) => {
-    // Mock authentication logic
-    const mockUser = { id: '1', name: 'John Doe', email };
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
-  };
+  const inferredName = email
+    .split('@')[0]
+    .replace(/[._-]/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+
+  const mockUser = { id: '1', name: inferredName, email };
+  setUser(mockUser);
+  localStorage.setItem('user', JSON.stringify(mockUser));
+};
+
 
   const logout = () => {
     setUser(null);
