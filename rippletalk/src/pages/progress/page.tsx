@@ -4,93 +4,59 @@ import { useChartData } from './hooks/useChartData';
 export const ProgressPage = () => {
   const { data, loading } = useChartData();
 
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-[calc(100vh-56px)] bg-gray-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-16 h-16 border-4 border-orange-400 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600 text-lg">Loading your progress...</p>
+          <div className="animate-spin w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full mx-auto mb-3"></div>
+          <p className="text-gray-200 text-base">Loading progress...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 py-12 px-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-[calc(100vh-56px)] bg-white-950 py-2 px-1 flex flex-col items-center justify-start">
+      <div className="w-full max-w-xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full mb-4 shadow-lg">
-            <span className="text-3xl">📊</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-800 mb-3">Your Progress</h1>
-          <p className="text-gray-600 text-lg">Visualize your emotional journey</p>
+        <div className="flex items-center gap-2 mb-2 mt-1 text-white">
+          <span className="bg-gradient-to-br from-orange-400 to-pink-500 text-2xl w-9 h-9 flex items-center justify-center rounded-full shadow">📊</span>
+          <h1 className="text-xl text-black font-bold">Mood Trends</h1>
         </div>
-
-        {data.length === 0 ? (
-          /* Empty State */
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-gray-300 mb-4">
-              <svg className="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
+        <p className="text-xs text-gray-400 mb-2 pl-1">Track your emotional journey</p>
+        {/* Chart */}
+        <EmotionalChart data={data} />
+        {/* Guide: tightly packed 2-row, 4-col grid */}
+        <div className="mt-2 grid grid-cols-4 md:grid-cols-2 gap-4">
+          <div className="flex items-start gap-2 bg-gray-800 rounded-lg p-2">
+            <span className="text-xl">😊</span>
+            <div>
+              <div className="font-semibold text-green-300 text-xs">7-10 High</div>
+              <div className="text-xs text-gray-300 leading-tight">Positive days</div>
             </div>
-            <h3 className="text-2xl font-bold text-gray-700 mb-2">No data yet</h3>
-            <p className="text-gray-500 mb-6">Start logging your mood to see your progress over time</p>
-            <a
-              href="/new"
-              className="inline-block bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold px-6 py-3 rounded-xl hover:from-orange-500 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl"
-            >
-              Create Your First Entry
-            </a>
           </div>
-        ) : (
-          <>
-           
-
-            {/* Chart */}
-            <EmotionalChart data={data} />
-
-            {/* Interpretation Guide */}
-            <div className="mt-8 bg-white rounded-xl shadow-md p-6">
-              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span className="text-xl">💡</span>
-                Understanding Your Chart
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
-                  <span className="text-2xl">😊</span>
-                  <div>
-                    <p className="font-semibold text-gray-700">High Scores (7-10)</p>
-                    <p className="text-gray-600">Days with positive experiences and emotions</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg">
-                  <span className="text-2xl">😐</span>
-                  <div>
-                    <p className="font-semibold text-gray-700">Medium Scores (4-6)</p>
-                    <p className="text-gray-600">Neutral or mixed emotional days</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
-                  <span className="text-2xl">😔</span>
-                  <div>
-                    <p className="font-semibold text-gray-700">Low Scores (1-3)</p>
-                    <p className="text-gray-600">Challenging days that need reflection</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
-                  <span className="text-2xl">📈</span>
-                  <div>
-                    <p className="font-semibold text-gray-700">Look for Patterns</p>
-                    <p className="text-gray-600">Notice trends to understand your emotional cycles</p>
-                  </div>
-                </div>
-              </div>
+          <div className="flex items-start gap-2 bg-gray-800 rounded-lg p-2">
+            <span className="text-xl">😐</span>
+            <div>
+              <div className="font-semibold text-yellow-200 text-xs">4-6 Medium</div>
+              <div className="text-xs text-gray-300 leading-tight">Mixed or flat days</div>
             </div>
-          </>
-        )}
+          </div>
+          <div className="flex items-start gap-2 bg-gray-800 rounded-lg p-2">
+            <span className="text-xl">😔</span>
+            <div>
+              <div className="font-semibold text-blue-200 text-xs">1-3 Low</div>
+              <div className="text-xs text-gray-300 leading-tight">Difficult moments</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-2 bg-gray-800 rounded-lg p-2">
+            <span className="text-xl">📈</span>
+            <div>
+              <div className="font-semibold text-orange-300 text-xs">Patterns</div>
+              <div className="text-xs text-gray-300 leading-tight">Spot trends</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

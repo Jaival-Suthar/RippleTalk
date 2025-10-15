@@ -6,85 +6,53 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 export const EmotionalChart = ({ data }: { data: ChartDataPoint[] }) => {
   const chartData = {
-    labels: data.map(d => d.date),
-    datasets: [{
-      label: 'Mood Score',
-      data: data.map(d => d.mood),
-      borderColor: '#FB8500',
-      backgroundColor: 'rgba(251, 133, 0, 0.1)',
-      borderWidth: 3,
-      tension: 0.4,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBackgroundColor: '#FB8500',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 2,
-      fill: true,
-    }]
+    labels: data.map((d: ChartDataPoint) => d.date),
+    datasets: [
+      {
+        label: 'Mood Score',
+        data: data.map((d) => d.mood),
+        borderColor: '#FB8500',
+        backgroundColor: 'rgba(251,133,0,0.08)',
+        borderWidth: 3,
+        tension: 0.3,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#FB8500',
+        pointBorderColor: '#111',
+        pointBorderWidth: 2,
+        fill: true,
+      },
+    ],
   };
-
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2.5,
+    maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
-        borderRadius: 8,
-        titleFont: {
-          size: 14,
-          weight: 'bold' as const,
-        },
-        bodyFont: {
-          size: 13,
-        },
+        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+        borderRadius: 10,
+        titleFont: { size: 13, weight: 'bold' as const },
+        bodyFont: { size: 12 },
+        padding: 10,
       },
     },
     scales: {
       y: {
-        beginAtZero: true,
+        min: 0,
         max: 10,
-        ticks: {
-          stepSize: 2,
-          font: {
-            size: 12,
-          },
-          color: '#6B7280',
-        },
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-          drawBorder: false,
-        },
+        ticks: { color: '#e5e5e5', font: { size: 11 }, stepSize: 2 },
+        grid: { color: 'rgba(255,255,255,0.05)' },
       },
       x: {
-        ticks: {
-          font: {
-            size: 12,
-          },
-          color: '#6B7280',
-          maxRotation: 0,
-        },
-        grid: {
-          display: false,
-          drawBorder: false,
-        },
+        ticks: { color: '#e5e5e5', font: { size: 11 }, maxRotation: 0 },
+        grid: { display: false },
       },
     },
   };
-
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="mb-4">
-        <h3 className="text-xl font-bold text-gray-800 mb-1">Mood Trends</h3>
-        <p className="text-sm text-gray-500">Track your emotional journey over time</p>
-      </div>
-      <div className="w-full" style={{ maxHeight: '350px' }}>
-        <Line data={chartData} options={options} />
-      </div>
+    <div className="bg-gray-900 rounded-xl shadow-md px-3 pt-3 pb-1 mb-1" style={{ height: 260 }}>
+      <Line data={chartData} options={options} height={240} />
     </div>
   );
 };
