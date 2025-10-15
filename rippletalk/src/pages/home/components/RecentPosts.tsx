@@ -40,27 +40,28 @@ export const RecentPosts = ({ posts, loading }: { posts: Post[]; loading: boolea
   };
 
   const getTypeStyles = (type: string) => {
-    switch (type) {
-      case 'high':
-        return {
-          bg: 'bg-green-50 border-green-200',
-          badge: 'bg-green-100 text-green-700',
-          icon: '🎉',
-        };
-      case 'low':
-        return {
-          bg: 'bg-red-50 border-red-200',
-          badge: 'bg-red-100 text-red-700',
-          icon: '💭',
-        };
-      default:
-        return {
-          bg: 'bg-gray-50 border-gray-200',
-          badge: 'bg-gray-100 text-gray-700',
-          icon: '📝',
-        };
-    }
-  };
+  switch (type) {
+    case 'high':
+      return {
+        bg: 'bg-green-300 border-green-500',          // dark green background
+        badge: 'bg-green-900 text-green-100',         // saturated green badge
+        icon: '🎉',
+      };
+    case 'low':
+      return {
+        bg: 'bg-red-300 border-red-500',              // dark red background
+        badge: 'bg-red-900 text-red-100',              // saturated red badge
+        icon: '💭',
+      };
+    default:
+      return {
+        bg: 'bg-gray-800 border-gray-600',            // dark gray background
+        badge: 'bg-gray-700 text-gray-200',           // muted gray badge
+        icon: '📝',
+      };
+  }
+};
+
 
   return (
     <div>
@@ -75,31 +76,32 @@ export const RecentPosts = ({ posts, loading }: { posts: Post[]; loading: boolea
           return (
             <div
               key={post.id}
-              className={`p-4 border-l-4 ${styles.bg} rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200`}
+              className={`p-4 border-l-4 ${styles.bg} rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xl">{styles.icon}</span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase ${styles.badge}`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-2xl">{styles.icon}</span>
+                    <span className={`px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${styles.badge} shadow-sm`}>
                       {post.type}
                     </span>
                     {post.date && (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-black-400 ml-auto font-mono tracking-wide">
                         {formatDate(post.date)}
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-700 leading-relaxed">{post.content}</p>
+                  <p className="text-black-100 leading-relaxed font-sans">{post.content}</p>
                 </div>
-                
+
                 <div className="flex flex-col items-end gap-1">
-                  <div className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-bold text-sm whitespace-nowrap">
+                  <div className="bg-yellow-600 text-yellow-100 px-4 py-1 rounded-full font-bold text-sm whitespace-nowrap shadow-md">
                     +{post.points} pts
                   </div>
                 </div>
               </div>
             </div>
+
           );
         })}
       </div>
