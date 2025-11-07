@@ -1,13 +1,14 @@
 import { createContext } from 'react';
-import type { User } from '../../src/types/index';
+import type { User } from '../types/index';
 
-// Define the Context Interface
 export interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => void;
+  token: string | null;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  isLoading: boolean;
+  error: string | null;
 }
 
-// Create and export the Context object
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

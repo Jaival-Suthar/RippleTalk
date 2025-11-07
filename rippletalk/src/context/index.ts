@@ -1,4 +1,4 @@
-// src/context/index.ts
-export * from './AuthContext'; // Exports AuthContext and AuthContextType
-export * from './AuthProvider'; // Exports AuthProvider
-export * from './useAuth'; // Exports useAuth
+export { AuthProvider } from './AuthProvider';
+export { useAuth } from './useAuth';
+export { AuthContext } from './AuthContext';
+export type { AuthContextType } from './AuthContext';

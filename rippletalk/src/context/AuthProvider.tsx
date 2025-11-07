@@ -1,35 +1,75 @@
 import { useState, type ReactNode } from 'react';
-// Import the context and type from the new file
-import { AuthContext, type AuthContextType } from './AuthContext'; 
-import type { User } from '../../src/types/index';
+import { AuthContext, type AuthContextType } from './AuthContext';
+import type { User, LoginResponse } from '../types/index';
 
-// 3. Create the Provider Component
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => {
     const stored = localStorage.getItem('user');
     return stored ? JSON.parse(stored) : null;
   });
+  
+  const [token, setToken] = useState<string | null>(() => {
+    return localStorage.getItem('token');
+  });
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Prefix 'password' with '_' to mark it as intentionally unused
-  const login: AuthContextType['login'] = (email, _password) => {
-  const inferredName = email
-    .split('@')[0]
-    .replace(/[._-]/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
+  const login: AuthContextType['login'] = async (email, password) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const baseUrl = import.meta.env.VITE_BASE_URL || 'https://rippletalk-8.onrender.com';
+      
+      const response = await fetch(`${baseUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-  const mockUser = { id: '1', name: inferredName, email };
-  setUser(mockUser);
-  localStorage.setItem('user', JSON.stringify(mockUser));
-};
+      const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store user and token
+      const loginData = data as LoginResponse;
+      setUser(loginData.user);
+      setToken(loginData.token);
+      localStorage.setItem('user', JSON.stringify(loginData.user));
+      localStorage.setItem('token', loginData.token);
+      
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Login failed';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setError(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      token,
+      login, 
+      logout, 
+      isAuthenticated: !!user && !!token,
+      isLoading,
+      error
+    }}>
       {children}
     </AuthContext.Provider>
   );
