@@ -10,6 +10,7 @@ const navItems = [
   { name: "Meditate", path: "/meditate", icon: <FaMedkit /> },
   { name: "Progress", path: "/progress", icon: <FaChartLine /> },
   { name: "Achievements", path: "/achievements", icon: <FaTrophy /> },
+  //{ name: "Profile", path: "/profile", icon: <FaUser /> },  // Added Profile nav item
 ];
 
 export const Navbar = () => {
@@ -29,17 +30,18 @@ export const Navbar = () => {
       {/* Nav items centered */}
       <div className="flex flex-grow justify-center gap-8">
         {navItems.map(({ name, path, icon }) => (
-  <Link
-    key={path}
-    to={path}
-    className={`flex items-center gap-2 transition-colors text-sm sm:text-base ${ location.pathname === path ? "text-green-400 font-semibold" : "text-white hover:text-green-300" }`}
-    style={{ display: 'flex', alignItems: 'center' }}
-  >
-    <span style={{ display: 'inline-flex', alignItems: 'center', fontSize: '1.2em' }}>{icon}</span>
-    <span>{name}</span>
-  </Link>
-))}
-
+          <Link
+            key={path}
+            to={path}
+            className={`flex items-center gap-2 transition-colors text-sm sm:text-base ${
+              location.pathname === path ? "text-green-400 font-semibold" : "text-white hover:text-green-300"
+            }`}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <span style={{ display: 'inline-flex', alignItems: 'center', fontSize: '1.2em' }}>{icon}</span>
+            <span>{name}</span>
+          </Link>
+        ))}
       </div>
 
       {/* Logout right */}
@@ -52,3 +54,4 @@ export const Navbar = () => {
     </nav>
   );
 };
+
