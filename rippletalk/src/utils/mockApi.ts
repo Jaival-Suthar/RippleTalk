@@ -1,12 +1,12 @@
 import type { Post, ChartDataPoint } from '../types';
 
-export const fetchRecentPosts = async (): Promise<Post[]> => {
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return [
-    { id: '1', type: 'high', content: 'Got promoted!', timestamp: new Date(), points: 10 },
-    { id: '2', type: 'low', content: 'Stressful day', timestamp: new Date(), points: 5 },
-  ];
-};
+// export const fetchRecentPosts = async (): Promise<Post[]> => {
+//   await new Promise(resolve => setTimeout(resolve, 500));
+//   return [
+//     { id: '1', type: 'high', content: 'Got promoted!', timestamp: new Date(), points: 10 },
+//     { id: '2', type: 'low', content: 'Stressful day', timestamp: new Date(), points: 5 },
+//   ];
+// };
 
 export const submitPost = async (type: 'high' | 'low', content: string): Promise<Post> => {
   await new Promise(resolve => setTimeout(resolve, 300));
