@@ -1,23 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context';
+import { useAuth } from '../../context/index';
 import { FaLeaf } from 'react-icons/fa';
+
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isLoading, error } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    await new Promise(resolve => setTimeout(resolve, 800));
-
-    login(email, password);
-    navigate('/');
+    
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (err) {
+      // Error is already handled in context
+      console.error('Login error:', err);
+    }
   };
 
   return (
@@ -45,6 +47,13 @@ export const LoginPage = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
             Welcome back
           </h2>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-600 text-sm text-center">{error}</p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Input */}
@@ -134,6 +143,7 @@ export const LoginPage = () => {
           <div className="text-center">
             <button
               type="button"
+              onClick={() => navigate('/register')}
               className="text-green-600 hover:text-green-700 font-semibold transition-colors"
             >
               Create an account
