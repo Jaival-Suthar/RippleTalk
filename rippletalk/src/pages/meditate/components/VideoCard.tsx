@@ -14,13 +14,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, url, description }) => {
       
       <div className="relative z-10">
         <iframe
-          src={url.replace("watch?v=", "embed/")}
+          src={url}
           title={title}
           loading="lazy"
           className="w-full aspect-video rounded-lg border border-gray-700"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          referrerPolicy="no-referrer"
+          referrerPolicy="strict-origin-when-cross-origin"
         />
         <h3 className="mt-3 text-lg font-semibold text-green-300">{title}</h3>
         <p className="text-gray-300 text-sm mt-1">{description}</p>
