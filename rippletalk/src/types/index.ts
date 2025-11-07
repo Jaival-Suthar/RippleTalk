@@ -1,16 +1,27 @@
 export interface User {
   id: string;
-  name: string;
+  username: string;
   email: string;
+}
+
+export interface LoginResponse {
+  message: string;
+  token: string;
+  user: User;
 }
 
 export interface Post {
   id: string;
   type: 'high' | 'low';
   content: string;
-  date: Date;  // Changed from timestamp to date for consistency
+  date: Date;
   points: number;
-  createdAt?: Date;  // Optional: for tracking creation time separately
+  createdAt?: Date;
+  user?: {
+    id: string;
+    username: string;
+    email: string;
+  };
 }
 
 export interface ChartDataPoint {
@@ -22,7 +33,7 @@ export interface PointsHistory {
   action: string;
   points: number;
   date: Date;
-  postId?: string;  // Optional: link back to the post
+  postId?: string;
 }
 
 export interface PointsState {
